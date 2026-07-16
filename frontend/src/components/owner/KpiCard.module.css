@@ -1,0 +1,25 @@
+.card {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  background-color: var(--color-paper);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.warning {
+  border-color: var(--color-warning);
+  background-color: var(--color-warning-bg);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.value {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-ink);
+}

@@ -1,0 +1,25 @@
+.nav {
+  margin-bottom: var(--space-lg);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.item a:hover {
+  color: var(--color-ink);
+}
+
+.separator {
+  color: var(--color-line-strong);
+}

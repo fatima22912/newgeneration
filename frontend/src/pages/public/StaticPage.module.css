@@ -1,0 +1,25 @@
+.page {
+  max-width: 720px;
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.page h2 {
+  margin-top: var(--space-md);
+}
+
+.page ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.placeholderNote {
+  color: var(--color-text-muted);
+  font-style: italic;
+  border-left: 3px solid var(--color-line-strong);
+  padding-left: var(--space-md);
+}

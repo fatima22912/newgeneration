@@ -1,0 +1,13 @@
+.filter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  margin: var(--space-md) 0;
+}
+
+.lowStock {
+  color: var(--color-warning);
+  font-weight: 700;
+}

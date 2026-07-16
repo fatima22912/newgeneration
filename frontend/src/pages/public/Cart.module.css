@@ -1,0 +1,12 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-2xl);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr 320px;
+  }
+}

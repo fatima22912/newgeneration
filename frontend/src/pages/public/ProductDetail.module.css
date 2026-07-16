@@ -1,0 +1,54 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-2xl);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.category {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.price {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+}
+
+.description {
+  color: var(--color-text-muted);
+}
+
+.similar {
+  padding-bottom: var(--space-2xl);
+}
+
+.similar h2 {
+  margin-bottom: var(--space-md);
+}
+
+.similarGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .similarGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

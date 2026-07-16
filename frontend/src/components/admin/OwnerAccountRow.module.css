@@ -1,0 +1,21 @@
+.statusActive {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.statusInactive {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.danger {
+  color: var(--color-danger);
+}

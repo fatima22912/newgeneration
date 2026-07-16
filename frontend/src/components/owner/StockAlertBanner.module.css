@@ -1,0 +1,21 @@
+.banner {
+  border: 1px solid var(--color-warning);
+  background-color: var(--color-warning-bg);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.title {
+  font-weight: 700;
+  color: var(--color-warning);
+  margin-bottom: var(--space-xs);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}

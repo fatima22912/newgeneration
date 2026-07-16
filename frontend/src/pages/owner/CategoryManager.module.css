@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  max-width: 640px;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.deleteAction {
+  color: var(--color-danger);
+}
