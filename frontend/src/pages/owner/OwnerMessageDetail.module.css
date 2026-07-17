@@ -1,0 +1,11 @@
+.card {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.message {
+  margin-top: var(--space-md);
+  white-space: pre-wrap;
+}

@@ -21,6 +21,8 @@ export const ROUTES = {
   ownerStock: "/proprietaire/stock",
   ownerOrders: "/proprietaire/commandes",
   ownerOrderDetail: (id = ":id") => `/proprietaire/commandes/${id}`,
+  ownerMessages: "/proprietaire/messages",
+  ownerMessageDetail: (id = ":id") => `/proprietaire/messages/${id}`,
   ownerStatistics: "/proprietaire/statistiques",
   ownerProfile: "/proprietaire/profil",
 

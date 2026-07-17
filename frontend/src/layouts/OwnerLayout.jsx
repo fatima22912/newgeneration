@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { to: "/proprietaire/categories", label: "Catégories" },
   { to: "/proprietaire/stock", label: "Stock" },
   { to: "/proprietaire/commandes", label: "Commandes" },
+  { to: "/proprietaire/messages", label: "Messages" },
   { to: "/proprietaire/statistiques", label: "Statistiques" },
   { to: "/proprietaire/profil", label: "Profil" },
 ];

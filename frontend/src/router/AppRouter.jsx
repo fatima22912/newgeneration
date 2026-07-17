@@ -28,6 +28,8 @@ import CategoryManager from "../pages/owner/CategoryManager";
 import StockOverview from "../pages/owner/StockOverview";
 import OrderList from "../pages/owner/OrderList";
 import OrderDetail from "../pages/owner/OrderDetail";
+import OwnerMessages from "../pages/owner/OwnerMessages";
+import OwnerMessageDetail from "../pages/owner/OwnerMessageDetail";
 import OwnerStatistics from "../pages/owner/OwnerStatistics";
 import OwnerProfile from "../pages/owner/OwnerProfile";
 
@@ -78,6 +80,8 @@ export default function AppRouter() {
           <Route path="stock" element={<StockOverview />} />
           <Route path="commandes" element={<OrderList />} />
           <Route path="commandes/:id" element={<OrderDetail />} />
+          <Route path="messages" element={<OwnerMessages />} />
+          <Route path="messages/:id" element={<OwnerMessageDetail />} />
           <Route path="statistiques" element={<OwnerStatistics />} />
           <Route path="profil" element={<OwnerProfile />} />
         </Route>
