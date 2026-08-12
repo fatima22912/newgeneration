@@ -16,7 +16,6 @@ import Contact from "../pages/public/Contact";
 import TermsOfSale from "../pages/public/legal/TermsOfSale";
 import PrivacyPolicy from "../pages/public/legal/PrivacyPolicy";
 import LegalNotice from "../pages/public/legal/LegalNotice";
-import ReturnPolicy from "../pages/public/legal/ReturnPolicy";
 import NotFound from "../pages/public/NotFound";
 import ServerError from "../pages/public/ServerError";
 
@@ -58,7 +57,6 @@ export default function AppRouter() {
           <Route path="/cgv" element={<TermsOfSale />} />
           <Route path="/confidentialite" element={<PrivacyPolicy />} />
           <Route path="/mentions-legales" element={<LegalNotice />} />
-          <Route path="/retours-echanges" element={<ReturnPolicy />} />
           <Route path="/erreur-serveur" element={<ServerError />} />
           <Route path="*" element={<NotFound />} />
         </Route>

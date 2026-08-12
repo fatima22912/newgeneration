@@ -125,9 +125,6 @@ export default function PublicLayout() {
               <li>
                 <Link to="/confidentialite">Confidentialité</Link>
               </li>
-              <li>
-                <Link to="/retours-echanges">Retours et échanges</Link>
-              </li>
             </ul>
           </div>
         </div>

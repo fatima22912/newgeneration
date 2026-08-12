@@ -10,7 +10,6 @@ export const ROUTES = {
   termsOfSale: "/cgv",
   privacyPolicy: "/confidentialite",
   legalNotice: "/mentions-legales",
-  returnPolicy: "/retours-echanges",
 
   ownerLogin: "/proprietaire/connexion",
   ownerDashboard: "/proprietaire/tableau-de-bord",
