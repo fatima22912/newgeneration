@@ -44,11 +44,7 @@ export default function OrderDetail() {
           <p>{order.customer_name}</p>
           <p>{order.customer_phone}</p>
           <p>Réception : {FULFILLMENT_METHOD_LABELS[order.fulfillment_method] || "Livraison"}</p>
-          {order.fulfillment_method === "pickup" ? (
-            <p>Retrait en boutique</p>
-          ) : (
-            <p>{order.customer_address}</p>
-          )}
+          {order.customer_address ? <p>{order.customer_address}</p> : <p>Retrait en boutique</p>}
           <p>Passée le {formatDateTime(order.created_at)}</p>
           <p>Paiement : {PAYMENT_METHODS.find((p) => p.value === order.payment_method)?.label}</p>
         </section>

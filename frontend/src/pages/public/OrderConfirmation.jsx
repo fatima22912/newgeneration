@@ -32,10 +32,10 @@ export default function OrderConfirmation() {
           <p>Statut : {ORDER_STATUS_LABELS[order.status]}</p>
           <p>Total : {formatPrice(order.total_amount)}</p>
           <p>Réception : {FULFILLMENT_METHOD_LABELS[order.fulfillment_method] || "Livraison"}</p>
-          {order.fulfillment_method === "pickup" ? (
-            <p>À récupérer : {STORE.addresses.join(" · ")}</p>
-          ) : (
+          {order.customer_address ? (
             <p>Adresse de livraison : {order.customer_address}</p>
+          ) : (
+            <p>À récupérer : {STORE.addresses.join(" · ")}</p>
           )}
         </div>
       )}

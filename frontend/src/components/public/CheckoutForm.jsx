@@ -78,7 +78,7 @@ export default function CheckoutForm({ values, errors, onChange, onSubmit, isSub
         error={errors.customer_phone}
         hint="Utilisé pour vous contacter et pour le suivi de votre commande."
       />
-      {values.fulfillment_method === "delivery" && (
+      {values.fulfillment_method === "delivery" && values.payment_method !== "cash_on_delivery" && (
         <TextField
           label="Adresse de livraison"
           required
