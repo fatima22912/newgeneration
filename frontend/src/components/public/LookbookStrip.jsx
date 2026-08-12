@@ -21,7 +21,7 @@ const PHOTOS = [
   shoot08, shoot09, shoot10, shoot11, shoot12, shoot13, shoot14,
 ];
 
-const INTERVAL_MS = 4000;
+const INTERVAL_MS = 2000;
 
 export default function LookbookStrip() {
   const [index, setIndex] = useState(0);
