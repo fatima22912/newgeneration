@@ -63,7 +63,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: var(--font-size-sm);
-  border-radius: 0;
+  border-radius: var(--radius-sm);
 }
 
 @media (prefers-reduced-motion: no-preference) {

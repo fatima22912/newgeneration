@@ -28,6 +28,7 @@
 
 .whatsappBox {
   background-color: var(--color-paper-alt);
+  border-radius: var(--radius-md);
   padding: var(--space-md);
   display: flex;
   flex-direction: column;

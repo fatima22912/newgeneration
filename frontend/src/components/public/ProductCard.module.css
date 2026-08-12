@@ -10,6 +10,10 @@
   transform: translateY(-3px);
 }
 
+.card:hover .imageWrapper {
+  box-shadow: var(--shadow-card);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .card {
     opacity: 0;
@@ -42,6 +46,8 @@
   position: relative;
   aspect-ratio: 4 / 5;
   background-color: var(--color-paper-alt);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
 .image {
@@ -87,6 +93,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-sm);
 }
 
 .info {
