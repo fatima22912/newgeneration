@@ -5,13 +5,17 @@ import styles from "./ProductCard.module.css";
 
 export default function ProductCard({ product }) {
   const image = resolveImageUrl(product.images?.[0]?.image_url);
+  const hoverImage = resolveImageUrl(product.images?.[1]?.image_url);
   const totalStock = (product.variants || []).reduce((sum, v) => sum + v.stock_quantity, 0);
 
   return (
     <Link to={`/produits/${product.slug}`} className={styles.card}>
       <div className={styles.imageWrapper}>
         {image ? (
-          <img src={image} alt={product.name} className={styles.image} />
+          <>
+            <img src={image} alt={product.name} className={styles.image} />
+            {hoverImage && <img src={hoverImage} alt="" className={styles.imageSecondary} />}
+          </>
         ) : (
           <div className={styles.placeholder} aria-hidden="true">
             Photo à venir

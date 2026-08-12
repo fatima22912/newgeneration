@@ -60,7 +60,10 @@
   background-color: var(--color-accent);
   color: #ffffff;
   font-weight: 700;
-  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--font-size-sm);
+  border-radius: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {

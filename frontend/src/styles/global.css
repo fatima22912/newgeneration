@@ -16,6 +16,12 @@ h4 {
   color: var(--color-ink);
 }
 
+h1,
+h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
 h1 {
   font-size: var(--font-size-2xl);
 }
