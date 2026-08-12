@@ -27,23 +27,6 @@ export default function OrderConfirmation() {
       </p>
       <p>Conservez ce numéro : il vous sera utile pour toute question sur votre commande.</p>
 
-      {order && (
-        <div className={styles.summary}>
-          <p>Statut : {ORDER_STATUS_LABELS[order.status]}</p>
-          <p>Total : {formatPrice(order.total_amount)}</p>
-          <p>Réception : {FULFILLMENT_METHOD_LABELS[order.fulfillment_method] || "Livraison"}</p>
-          {order.customer_address ? (
-            <p>Adresse de livraison : {order.customer_address}</p>
-          ) : (
-            <p>À récupérer : {STORE.addresses.join(" · ")}</p>
-          )}
-        </div>
-      )}
-
-      <p className={styles.contactNote}>
-        Pour toute question, contactez-nous au {STORE.phones.join(" ou ")}.
-      </p>
-
       {(!order || order.payment_method !== "cash_on_delivery") && (
         <div className={styles.whatsappBox}>
           <p>
@@ -60,6 +43,23 @@ export default function OrderConfirmation() {
           </a>
         </div>
       )}
+
+      {order && (
+        <div className={styles.summary}>
+          <p>Statut : {ORDER_STATUS_LABELS[order.status]}</p>
+          <p>Total : {formatPrice(order.total_amount)}</p>
+          <p>Réception : {FULFILLMENT_METHOD_LABELS[order.fulfillment_method] || "Livraison"}</p>
+          {order.customer_address ? (
+            <p>Adresse de livraison : {order.customer_address}</p>
+          ) : (
+            <p>À récupérer : {STORE.addresses.join(" · ")}</p>
+          )}
+        </div>
+      )}
+
+      <p className={styles.contactNote}>
+        Pour toute question, contactez-nous au {STORE.phones.join(" ou ")}.
+      </p>
 
       <div className={styles.actions}>
         <Link to="/catalogue">

@@ -110,7 +110,23 @@ export default function CheckoutForm({ values, errors, onChange, onSubmit, isSub
             {PAYMENT_LOGOS[method.value] && (
               <img src={PAYMENT_LOGOS[method.value]} alt="" className={styles.paymentLogo} />
             )}
-            <span>{method.label}</span>
+            {method.value === "wave" ? (
+              <a
+                href={STORE.wavePaymentUrl}
+                target="_blank"
+                rel="noreferrer"
+                className={styles.paymentOptionLink}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onChange("payment_method", "wave");
+                  onChange("payment_confirmed", false);
+                }}
+              >
+                Payer avec Wave
+              </a>
+            ) : (
+              <span>{method.label}</span>
+            )}
           </label>
         ))}
       </div>
@@ -118,17 +134,9 @@ export default function CheckoutForm({ values, errors, onChange, onSubmit, isSub
       {values.payment_method === "wave" && (
         <div className={styles.paymentStep}>
           <p className={styles.paymentNote}>
-            Payez d'abord le montant total via Wave, puis confirmez ci-dessous pour pouvoir
-            valider votre commande.
+            Le lien Wave s'est ouvert dans un nouvel onglet. Une fois le paiement effectué,
+            confirmez ci-dessous pour pouvoir valider votre commande.
           </p>
-          <a
-            href={STORE.wavePaymentUrl}
-            target="_blank"
-            rel="noreferrer"
-            className={styles.payLink}
-          >
-            Payer avec Wave
-          </a>
           <label className={styles.confirmRow}>
             <input
               type="checkbox"
