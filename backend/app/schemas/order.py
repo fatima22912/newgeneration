@@ -21,9 +21,12 @@ class OrderCreate(BaseModel):
 
     @model_validator(mode="after")
     def _address_required_for_delivery(self) -> "OrderCreate":
-        if self.fulfillment_method == FulfillmentMethod.delivery:
-            if not self.customer_address or len(self.customer_address.strip()) < 5:
-                raise ValueError("L'adresse de livraison est requise (5 caractères minimum).")
+        address_needed = (
+            self.fulfillment_method == FulfillmentMethod.delivery
+            and self.payment_method != PaymentMethod.cash_on_delivery
+        )
+        if address_needed and (not self.customer_address or len(self.customer_address.strip()) < 5):
+            raise ValueError("L'adresse de livraison est requise (5 caractères minimum).")
         return self
 
 
