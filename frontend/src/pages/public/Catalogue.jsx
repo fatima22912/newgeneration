@@ -4,7 +4,6 @@ import { useFetch } from "../../hooks/useFetch";
 import { listProducts } from "../../services/api/productService";
 import ProductCard from "../../components/public/ProductCard";
 import SortSelector from "../../components/public/SortSelector";
-import SearchBar from "../../components/public/SearchBar";
 import Pagination from "../../components/common/Pagination";
 import Loader from "../../components/common/Loader";
 import EmptyState from "../../components/common/EmptyState";
@@ -54,13 +53,6 @@ export default function Catalogue() {
     <div className="container">
       <Breadcrumb items={[{ label: "Accueil", to: "/" }, { label: "Catalogue" }]} />
       <h1>Catalogue</h1>
-
-      <div className={styles.searchRow}>
-        <SearchBar
-          initialValue={filters.search || ""}
-          onSearch={(search) => updateParams({ ...filters, search })}
-        />
-      </div>
 
       <div className={styles.resultsHeader}>
         <span aria-live="polite">{meta ? `${meta.total} produit(s)` : ""}</span>
