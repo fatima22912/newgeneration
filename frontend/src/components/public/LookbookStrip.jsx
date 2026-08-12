@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styles from "./LookbookStrip.module.css";
 
 import shoot01 from "../../assets/lookbook/shoot-01.jpeg";
@@ -20,24 +21,39 @@ const PHOTOS = [
   shoot08, shoot09, shoot10, shoot11, shoot12, shoot13, shoot14,
 ];
 
+const INTERVAL_MS = 4000;
+
 export default function LookbookStrip() {
-  const loop = [...PHOTOS, ...PHOTOS];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = setInterval(() => {
+      setIndex((current) => (current + 1) % PHOTOS.length);
+    }, INTERVAL_MS);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <section className={styles.section} aria-label="Lookbook New Generation">
-      <div className={`container ${styles.header}`}>
-        <span className={styles.eyebrow}>Shooting</span>
-        <h2 className={styles.title}>Portés par la rue</h2>
+    <section className={styles.section} aria-label="Photos New Generation">
+      <h2 className={styles.title}>Portés par la rue</h2>
+
+      <div className={styles.stage}>
+        {PHOTOS.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt=""
+            className={i === index ? `${styles.photo} ${styles.photoActive}` : styles.photo}
+            loading={i === 0 ? "eager" : "lazy"}
+          />
+        ))}
       </div>
 
-      <div className={styles.track}>
-        <div className={styles.scroller}>
-          {loop.map((src, index) => (
-            <div className={styles.frame} key={index} aria-hidden={index >= PHOTOS.length}>
-              <img src={src} alt="" loading="lazy" />
-            </div>
-          ))}
-        </div>
+      <div className={styles.dots} role="presentation">
+        {PHOTOS.map((src, i) => (
+          <span key={src} className={i === index ? styles.dotActive : styles.dot} />
+        ))}
       </div>
     </section>
   );

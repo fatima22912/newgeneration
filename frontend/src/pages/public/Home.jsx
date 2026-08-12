@@ -4,6 +4,7 @@ import { listProducts } from "../../services/api/productService";
 import { listCategories } from "../../services/api/categoryService";
 import ProductCard from "../../components/public/ProductCard";
 import CategoryNav from "../../components/public/CategoryNav";
+import LookbookStrip from "../../components/public/LookbookStrip";
 import Loader from "../../components/common/Loader";
 import styles from "./Home.module.css";
 
@@ -57,6 +58,8 @@ export default function Home() {
           </div>
         )}
       </section>
+
+      <LookbookStrip />
     </div>
   );
 }
