@@ -34,21 +34,6 @@
   gap: var(--space-sm);
 }
 
-.whatsappLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--touch-target-min);
-  padding: 0 var(--space-lg);
-  background-color: var(--color-ink);
-  color: var(--color-text-on-ink);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: var(--font-size-sm);
-  width: fit-content;
-}
-
 .actions {
   display: flex;
   gap: var(--space-sm);

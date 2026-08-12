@@ -4,16 +4,6 @@ import { FULFILLMENT_METHOD_LABELS, ORDER_STATUS_LABELS, STORE } from "../../uti
 import Button from "../../components/common/Button";
 import styles from "./OrderConfirmation.module.css";
 
-function buildWhatsappUrl(orderNumber, order) {
-  const digits = STORE.phones[0].replace(/\s+/g, "");
-  const lines = [
-    `Bonjour, je viens de payer ma commande ${orderNumber}.`,
-    order ? `Total : ${formatPrice(order.total_amount)}.` : null,
-    "Je joins la capture d'écran de mon paiement Wave / Orange Money en pièce jointe.",
-  ].filter(Boolean);
-  return `https://wa.me/221${digits}?text=${encodeURIComponent(lines.join(" "))}`;
-}
-
 export default function OrderConfirmation() {
   const { orderNumber } = useParams();
   const location = useLocation();
@@ -30,17 +20,10 @@ export default function OrderConfirmation() {
       {(!order || order.payment_method !== "cash_on_delivery") && (
         <div className={styles.whatsappBox}>
           <p>
-            Après avoir payé via Wave ou Orange Money, envoyez-nous la capture d'écran de votre
-            paiement sur WhatsApp pour accélérer la validation de votre commande.
+            Après avoir payé via Wave ou Orange Money, merci de nous envoyer vous-même la capture
+            d'écran de votre paiement sur WhatsApp, au {STORE.phones.join(" ou ")}, pour accélérer
+            la validation de votre commande.
           </p>
-          <a
-            href={buildWhatsappUrl(orderNumber, order)}
-            target="_blank"
-            rel="noreferrer"
-            className={styles.whatsappLink}
-          >
-            Envoyer sur WhatsApp
-          </a>
         </div>
       )}
 
