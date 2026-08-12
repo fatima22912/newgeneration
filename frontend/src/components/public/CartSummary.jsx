@@ -1,7 +1,7 @@
 import { formatPrice } from "../../utils/formatters";
 import styles from "./CartSummary.module.css";
 
-export default function CartSummary({ totalAmount, itemCount, children }) {
+export default function CartSummary({ totalAmount, itemCount, fulfillmentLabel, children }) {
   return (
     <div className={styles.summary}>
       <h2 className={styles.title}>Récapitulatif</h2>
@@ -10,8 +10,8 @@ export default function CartSummary({ totalAmount, itemCount, children }) {
         <span>{formatPrice(totalAmount)}</span>
       </div>
       <div className={styles.row}>
-        <span>Livraison</span>
-        <span>À confirmer par la boutique</span>
+        <span>{fulfillmentLabel ? "Réception" : "Livraison"}</span>
+        <span>{fulfillmentLabel || "À confirmer par la boutique"}</span>
       </div>
       <div className={styles.totalRow}>
         <span>Total</span>

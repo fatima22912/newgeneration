@@ -13,6 +13,16 @@ export const PAYMENT_METHODS = [
   { value: "cash_on_delivery", label: "Paiement en boutique" },
 ];
 
+export const FULFILLMENT_METHODS = [
+  { value: "delivery", label: "Livraison" },
+  { value: "pickup", label: "Récupération en boutique" },
+];
+
+export const FULFILLMENT_METHOD_LABELS = {
+  delivery: "Livraison",
+  pickup: "Récupération en boutique",
+};
+
 export const ORDER_STATUS_LABELS = {
   pending: "En attente",
   processing: "En préparation",

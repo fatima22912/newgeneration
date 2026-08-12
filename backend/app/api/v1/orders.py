@@ -22,6 +22,7 @@ def _to_order_out(order) -> OrderOut:
         customer_name=order.customer_name,
         customer_phone=order.customer_phone,
         customer_address=order.customer_address,
+        fulfillment_method=order.fulfillment_method,
         status=order.status,
         payment_method=order.payment_method,
         total_amount=order.total_amount,

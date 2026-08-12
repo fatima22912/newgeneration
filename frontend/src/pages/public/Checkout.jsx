@@ -8,13 +8,16 @@ import CheckoutForm from "../../components/public/CheckoutForm";
 import CartSummary from "../../components/public/CartSummary";
 import Breadcrumb from "../../components/common/Breadcrumb";
 import { isRequired, isValidPhone, minLength } from "../../utils/validators";
+import { FULFILLMENT_METHOD_LABELS } from "../../utils/constants";
 import styles from "./Checkout.module.css";
 
 function validate(values) {
   const errors = {};
   if (!isRequired(values.customer_name)) errors.customer_name = "Le nom est requis.";
   if (!isValidPhone(values.customer_phone)) errors.customer_phone = "Numéro de téléphone invalide.";
-  if (!minLength(values.customer_address, 5)) errors.customer_address = "Adresse trop courte.";
+  if (values.fulfillment_method === "delivery" && !minLength(values.customer_address, 5)) {
+    errors.customer_address = "Adresse trop courte.";
+  }
   return errors;
 }
 
@@ -28,6 +31,7 @@ export default function Checkout() {
       customer_name: "",
       customer_phone: "",
       customer_address: "",
+      fulfillment_method: "delivery",
       payment_method: "wave",
       payment_confirmed: false,
     },
@@ -44,7 +48,8 @@ export default function Checkout() {
       const payload = {
         customer_name: values.customer_name,
         customer_phone: values.customer_phone,
-        customer_address: values.customer_address,
+        customer_address: values.fulfillment_method === "delivery" ? values.customer_address : null,
+        fulfillment_method: values.fulfillment_method,
         payment_method: values.payment_method,
         items: items.map((item) => ({
           product_variant_id: item.product_variant_id,
@@ -76,7 +81,11 @@ export default function Checkout() {
           onSubmit={() => handleSubmit(submitOrder)}
           isSubmitting={isSubmitting}
         />
-        <CartSummary totalAmount={totalAmount} itemCount={totalQuantity} />
+        <CartSummary
+          totalAmount={totalAmount}
+          itemCount={totalQuantity}
+          fulfillmentLabel={FULFILLMENT_METHOD_LABELS[values.fulfillment_method]}
+        />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import Button from "../common/Button";
 import waveLogoUrl from "../../assets/images/payment-wave.jpeg";
 import orangeMoneyLogoUrl from "../../assets/images/payment-orange-money.jpeg";
 import orangeMoneyQrUrl from "../../assets/images/payment-orange-money-qr.jpeg";
-import { PAYMENT_METHODS, STORE } from "../../utils/constants";
+import { FULFILLMENT_METHODS, PAYMENT_METHODS, STORE } from "../../utils/constants";
 import styles from "./CheckoutForm.module.css";
 
 const PAYMENT_LOGOS = {
@@ -33,7 +33,35 @@ export default function CheckoutForm({ values, errors, onChange, onSubmit, isSub
         onSubmit();
       }}
     >
-      <h2 className={styles.sectionTitle}>1. Vos informations</h2>
+      <h2 className={styles.sectionTitle}>1. Mode de réception</h2>
+      <div className={styles.paymentOptions} role="radiogroup" aria-label="Mode de réception">
+        {FULFILLMENT_METHODS.map((method) => (
+          <label
+            key={method.value}
+            className={
+              values.fulfillment_method === method.value
+                ? styles.paymentOptionActive
+                : styles.paymentOption
+            }
+          >
+            <input
+              type="radio"
+              name="fulfillment_method"
+              value={method.value}
+              checked={values.fulfillment_method === method.value}
+              onChange={() => onChange("fulfillment_method", method.value)}
+            />
+            <span>{method.label}</span>
+          </label>
+        ))}
+      </div>
+      {values.fulfillment_method === "pickup" && (
+        <p className={styles.paymentNote}>
+          À récupérer dans l'une de nos boutiques : {STORE.addresses.join(" · ")}.
+        </p>
+      )}
+
+      <h2 className={styles.sectionTitle}>2. Vos informations</h2>
       <TextField
         label="Nom complet"
         required
@@ -50,15 +78,17 @@ export default function CheckoutForm({ values, errors, onChange, onSubmit, isSub
         error={errors.customer_phone}
         hint="Utilisé pour vous contacter et pour le suivi de votre commande."
       />
-      <TextField
-        label="Adresse de livraison"
-        required
-        value={values.customer_address}
-        onChange={(v) => onChange("customer_address", v)}
-        error={errors.customer_address}
-      />
+      {values.fulfillment_method === "delivery" && (
+        <TextField
+          label="Adresse de livraison"
+          required
+          value={values.customer_address}
+          onChange={(v) => onChange("customer_address", v)}
+          error={errors.customer_address}
+        />
+      )}
 
-      <h2 className={styles.sectionTitle}>2. Mode de paiement</h2>
+      <h2 className={styles.sectionTitle}>3. Mode de paiement</h2>
       <div className={styles.paymentOptions} role="radiogroup" aria-label="Mode de paiement">
         {PAYMENT_METHODS.map((method) => (
           <label

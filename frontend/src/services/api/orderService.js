@@ -57,6 +57,7 @@ export async function createOrder(payload) {
       customer_name: payload.customer_name,
       customer_phone: payload.customer_phone,
       customer_address: payload.customer_address,
+      fulfillment_method: payload.fulfillment_method || "delivery",
       payment_method: payload.payment_method,
       status: "pending",
       items,

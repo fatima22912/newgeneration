@@ -1,6 +1,6 @@
 .row {
   display: grid;
-  grid-template-columns: 64px 1fr auto auto auto;
+  grid-template-columns: 88px 1fr auto auto auto;
   align-items: center;
   gap: var(--space-md);
   padding: var(--space-md) 0;
@@ -9,7 +9,7 @@
 
 @media (max-width: 640px) {
   .row {
-    grid-template-columns: 64px 1fr;
+    grid-template-columns: 88px 1fr;
     grid-template-areas:
       "image details"
       "image quantity"
@@ -36,9 +36,8 @@
 }
 
 .imageWrapper {
-  width: 64px;
-  height: 64px;
-  border-radius: var(--radius-sm);
+  width: 88px;
+  height: 110px;
   background-color: var(--color-paper-alt);
   display: flex;
   align-items: center;
@@ -55,7 +54,9 @@
 }
 
 .name {
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .variant,
@@ -69,7 +70,6 @@
   align-items: center;
   gap: var(--space-sm);
   border: 1px solid var(--color-line-strong);
-  border-radius: var(--radius-sm);
   padding: 0 var(--space-sm);
 }
 

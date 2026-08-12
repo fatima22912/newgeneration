@@ -25,6 +25,11 @@ class PaymentMethod(str, enum.Enum):
     cash_on_delivery = "cash_on_delivery"
 
 
+class FulfillmentMethod(str, enum.Enum):
+    delivery = "delivery"
+    pickup = "pickup"
+
+
 class Order(Base, TimestampMixin):
     __tablename__ = "orders"
 
@@ -32,7 +37,10 @@ class Order(Base, TimestampMixin):
     order_number: Mapped[str] = mapped_column(String(30), unique=True, nullable=False, index=True)
     customer_name: Mapped[str] = mapped_column(String(150), nullable=False)
     customer_phone: Mapped[str] = mapped_column(String(30), nullable=False, index=True)
-    customer_address: Mapped[str] = mapped_column(String(500), nullable=False)
+    customer_address: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    fulfillment_method: Mapped[FulfillmentMethod] = mapped_column(
+        Enum(FulfillmentMethod), nullable=False, default=FulfillmentMethod.delivery
+    )
     status: Mapped[OrderStatus] = mapped_column(
         Enum(OrderStatus), nullable=False, default=OrderStatus.pending
     )

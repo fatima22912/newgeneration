@@ -55,6 +55,12 @@ export default function ProductDetail() {
     showToast(`${product.name} ajouté au panier.`, "success");
   }
 
+  function handleBuyNow() {
+    if (!selection.variant) return;
+    handleAddToCart();
+    navigate("/commande");
+  }
+
   const similarProducts = (similarResponse?.data || []).filter((p) => p.id !== product.id);
 
   return (
@@ -84,6 +90,14 @@ export default function ProductDetail() {
             onClick={handleAddToCart}
           >
             Ajouter au panier
+          </Button>
+          <Button
+            fullWidth
+            variant="secondary"
+            disabled={!selection.variant || selection.variant.stock_quantity === 0}
+            onClick={handleBuyNow}
+          >
+            Acheter maintenant
           </Button>
         </div>
       </div>

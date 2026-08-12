@@ -7,7 +7,7 @@ import OrderStatusStepper from "../../components/owner/OrderStatusStepper";
 import Loader from "../../components/common/Loader";
 import Breadcrumb from "../../components/common/Breadcrumb";
 import { formatDateTime, formatPrice } from "../../utils/formatters";
-import { PAYMENT_METHODS } from "../../utils/constants";
+import { FULFILLMENT_METHOD_LABELS, PAYMENT_METHODS } from "../../utils/constants";
 import styles from "./OrderDetail.module.css";
 
 export default function OrderDetail() {
@@ -43,7 +43,12 @@ export default function OrderDetail() {
           <h2>Client</h2>
           <p>{order.customer_name}</p>
           <p>{order.customer_phone}</p>
-          <p>{order.customer_address}</p>
+          <p>Réception : {FULFILLMENT_METHOD_LABELS[order.fulfillment_method] || "Livraison"}</p>
+          {order.fulfillment_method === "pickup" ? (
+            <p>Retrait en boutique</p>
+          ) : (
+            <p>{order.customer_address}</p>
+          )}
           <p>Passée le {formatDateTime(order.created_at)}</p>
           <p>Paiement : {PAYMENT_METHODS.find((p) => p.value === order.payment_method)?.label}</p>
         </section>

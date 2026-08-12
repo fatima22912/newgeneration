@@ -1,9 +1,9 @@
 import datetime
 from decimal import Decimal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
-from app.models.order import OrderStatus, PaymentMethod
+from app.models.order import FulfillmentMethod, OrderStatus, PaymentMethod
 
 
 class OrderItemIn(BaseModel):
@@ -14,9 +14,17 @@ class OrderItemIn(BaseModel):
 class OrderCreate(BaseModel):
     customer_name: str = Field(min_length=2, max_length=150)
     customer_phone: str = Field(min_length=6, max_length=30)
-    customer_address: str = Field(min_length=5, max_length=500)
+    customer_address: str | None = Field(default=None, max_length=500)
+    fulfillment_method: FulfillmentMethod = FulfillmentMethod.delivery
     payment_method: PaymentMethod
     items: list[OrderItemIn] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _address_required_for_delivery(self) -> "OrderCreate":
+        if self.fulfillment_method == FulfillmentMethod.delivery:
+            if not self.customer_address or len(self.customer_address.strip()) < 5:
+                raise ValueError("L'adresse de livraison est requise (5 caractères minimum).")
+        return self
 
 
 class OrderItemOut(BaseModel):
@@ -35,7 +43,8 @@ class OrderOut(BaseModel):
     order_number: str
     customer_name: str
     customer_phone: str
-    customer_address: str
+    customer_address: str | None
+    fulfillment_method: FulfillmentMethod
     status: OrderStatus
     payment_method: PaymentMethod
     total_amount: Decimal
