@@ -10,7 +10,6 @@ export const STORE = {
 export const PAYMENT_METHODS = [
   { value: "wave", label: "Wave" },
   { value: "orange_money", label: "Orange Money" },
-  { value: "cash_on_delivery", label: "Paiement en boutique" },
 ];
 
 export const FULFILLMENT_METHODS = [

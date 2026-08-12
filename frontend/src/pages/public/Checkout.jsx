@@ -12,7 +12,7 @@ import { FULFILLMENT_METHOD_LABELS } from "../../utils/constants";
 import styles from "./Checkout.module.css";
 
 function addressRequired(values) {
-  return values.fulfillment_method === "delivery" && values.payment_method !== "cash_on_delivery";
+  return values.fulfillment_method === "delivery";
 }
 
 function validate(values) {

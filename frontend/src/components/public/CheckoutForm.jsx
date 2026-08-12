@@ -17,7 +17,6 @@ const PAYMENT_LOGOS = {
 // explicitement avant de pouvoir valider — la boutique vérifie ensuite
 // réellement la réception avant de traiter la commande.
 function isPaymentStepDone(values) {
-  if (values.payment_method === "cash_on_delivery") return true;
   return Boolean(values.payment_confirmed);
 }
 
@@ -78,7 +77,7 @@ export default function CheckoutForm({ values, errors, onChange, onSubmit, isSub
         error={errors.customer_phone}
         hint="Utilisé pour vous contacter et pour le suivi de votre commande."
       />
-      {values.fulfillment_method === "delivery" && values.payment_method !== "cash_on_delivery" && (
+      {values.fulfillment_method === "delivery" && (
         <TextField
           label="Adresse de livraison"
           required
@@ -106,6 +105,7 @@ export default function CheckoutForm({ values, errors, onChange, onSubmit, isSub
                 onChange("payment_method", method.value);
                 onChange("payment_confirmed", false);
               }}
+              className="visually-hidden"
             />
             {PAYMENT_LOGOS[method.value] && (
               <img src={PAYMENT_LOGOS[method.value]} alt="" className={styles.paymentLogo} />
@@ -168,12 +168,6 @@ export default function CheckoutForm({ values, errors, onChange, onSubmit, isSub
           </label>
         </div>
       )}
-      {values.payment_method === "cash_on_delivery" && (
-        <p className={styles.paymentNote}>
-          Vous réglerez directement en boutique au moment du retrait ou à la livraison.
-        </p>
-      )}
-
       <Button type="submit" fullWidth disabled={isSubmitting || !paymentReady}>
         {isSubmitting ? "Validation en cours..." : "Valider la commande"}
       </Button>
