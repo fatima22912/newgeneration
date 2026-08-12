@@ -1,4 +1,5 @@
 import { useId, useState } from "react";
+import { resolveImageUrl } from "../../utils/media";
 import styles from "./ImageUploader.module.css";
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -31,7 +32,7 @@ export default function ImageUploader({ images = [], onUpload, isUploading }) {
 
       <div className={styles.grid}>
         {images.map((image) => (
-          <img key={image.id} src={image.image_url} alt="" className={styles.thumb} />
+          <img key={image.id} src={resolveImageUrl(image.image_url)} alt="" className={styles.thumb} />
         ))}
         {images.length === 0 && <p className={styles.placeholder}>Aucune photo pour l'instant.</p>}
       </div>

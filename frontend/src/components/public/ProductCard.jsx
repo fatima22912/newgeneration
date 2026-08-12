@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { formatPrice } from "../../utils/formatters";
+import { resolveImageUrl } from "../../utils/media";
 import styles from "./ProductCard.module.css";
 
 export default function ProductCard({ product }) {
-  const image = product.images?.[0]?.image_url;
+  const image = resolveImageUrl(product.images?.[0]?.image_url);
   const totalStock = (product.variants || []).reduce((sum, v) => sum + v.stock_quantity, 0);
 
   return (

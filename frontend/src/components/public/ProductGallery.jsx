@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { resolveImageUrl } from "../../utils/media";
 import styles from "./ProductGallery.module.css";
 
 export default function ProductGallery({ images = [], productName }) {
@@ -16,7 +17,7 @@ export default function ProductGallery({ images = [], productName }) {
 
   return (
     <div className={styles.gallery}>
-      <img src={activeImage.image_url} alt={productName} className={styles.mainImage} />
+      <img src={resolveImageUrl(activeImage.image_url)} alt={productName} className={styles.mainImage} />
       {images.length > 1 && (
         <div className={styles.thumbnails}>
           {images.map((image, index) => (
@@ -28,7 +29,7 @@ export default function ProductGallery({ images = [], productName }) {
               aria-label={`Voir la photo ${index + 1} de ${productName}`}
               aria-current={index === activeIndex}
             >
-              <img src={image.image_url} alt="" />
+              <img src={resolveImageUrl(image.image_url)} alt="" />
             </button>
           ))}
         </div>

@@ -1,14 +1,16 @@
 import { formatPrice } from "../../utils/formatters";
+import { resolveImageUrl } from "../../utils/media";
 import styles from "./CartItemRow.module.css";
 
 export default function CartItemRow({ item, onQuantityChange, onRemove }) {
   const subtotal = parseFloat(item.unit_price) * item.quantity;
+  const image = resolveImageUrl(item.image_url);
 
   return (
     <div className={styles.row}>
       <div className={styles.imageWrapper}>
-        {item.image_url ? (
-          <img src={item.image_url} alt={item.product_name} />
+        {image ? (
+          <img src={image} alt={item.product_name} />
         ) : (
           <span aria-hidden="true">Photo</span>
         )}
