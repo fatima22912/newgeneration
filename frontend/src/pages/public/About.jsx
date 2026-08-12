@@ -12,10 +12,12 @@ export default function About() {
         New Generation est une boutique de prêt-à-porter urbain basée à Dakar, spécialisée dans
         les t-shirts, maillots, pantalons, bonnets et pulls.
       </p>
-      <p className={styles.placeholderNote}>
-        [Texte de présentation de la marque à venir — contenu temporaire en attendant les textes
-        définitifs fournis par la boutique.]
+      <p>
+        NEW GENERATION est une marque streetwear créée par deux amis, pensée pour une nouvelle
+        génération qui ose être différente. Nous mélangeons style, culture urbaine et identité
+        pour créer des pièces qui racontent une histoire.
       </p>
+      <p className={styles.tagline}>NEW GENERATION. STORYCHANGERS.</p>
 
       <h2>Nos boutiques</h2>
       <ul>
