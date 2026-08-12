@@ -69,6 +69,11 @@ export default function PublicLayout() {
         <Outlet />
       </main>
 
+      <div className={styles.footerCurve} aria-hidden="true">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,32 C240,60 480,0 720,14 C960,28 1200,58 1440,30 L1440,60 L0,60 Z" />
+        </svg>
+      </div>
       <footer className={styles.footer}>
         <div className={`container ${styles.footerInner}`}>
           <div className={styles.footerColumn}>
@@ -125,6 +130,14 @@ export default function PublicLayout() {
               </li>
             </ul>
           </div>
+        </div>
+
+        <div className={styles.footerCredit}>
+          <p>
+            Vous voulez un site ou une application ? Fatima Mbaye —{" "}
+            <a href="tel:+221768328120">76 832 81 20</a> ·{" "}
+            <a href="mailto:fatoumbaye1@esp.sn">fatoumbaye1@esp.sn</a>
+          </p>
         </div>
       </footer>
     </div>
