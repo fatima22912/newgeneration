@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import logoMarque from "../assets/images/logo-marque.jpeg";
 import { useCart } from "../hooks/useCart";
 import { STORE } from "../utils/constants";
@@ -14,7 +14,18 @@ const NAV_LINKS = [
 
 export default function PublicLayout() {
   const { totalQuantity } = useCart();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
+  function handleSearchSubmit(e) {
+    e.preventDefault();
+    const query = searchValue.trim();
+    setIsSearchOpen(false);
+    setSearchValue("");
+    navigate(query ? `/catalogue?search=${encodeURIComponent(query)}` : "/catalogue");
+  }
 
   return (
     <div className={styles.page}>
@@ -75,13 +86,79 @@ export default function PublicLayout() {
             ))}
           </nav>
 
-          <Link to="/panier" className={styles.cartLink}>
-            Panier
-            <span className={styles.cartCount} aria-live="polite">
-              {totalQuantity}
-            </span>
-          </Link>
+          <div className={styles.actions}>
+            <button
+              type="button"
+              className={styles.iconButton}
+              aria-expanded={isSearchOpen}
+              aria-controls="header-search-row"
+              aria-label={isSearchOpen ? "Fermer la recherche" : "Rechercher"}
+              onClick={() => setIsSearchOpen((open) => !open)}
+            >
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" fill="none" />
+                <line
+                  x1="16.65"
+                  y1="16.65"
+                  x2="21"
+                  y2="21"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+
+            <Link to="/panier" className={styles.cartLink} aria-label={`Panier, ${totalQuantity} article(s)`}>
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <path
+                  d="M6 8h12l-1 12.1a1 1 0 0 1-1 0.9H8a1 1 0 0 1-1-0.9L6 8Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
+                <path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" strokeWidth="2" fill="none" />
+              </svg>
+              <span className={styles.cartCount} aria-hidden="true">
+                {totalQuantity}
+              </span>
+            </Link>
+          </div>
         </div>
+
+        {isSearchOpen && (
+          <div className={`container ${styles.searchRow}`} id="header-search-row">
+            <form className={styles.searchForm} role="search" onSubmit={handleSearchSubmit}>
+              <label htmlFor="header-search" className="visually-hidden">
+                Rechercher un produit
+              </label>
+              <input
+                id="header-search"
+                type="search"
+                autoFocus
+                className={styles.searchInput}
+                placeholder="Rechercher un t-shirt, un bonnet..."
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+              <button type="submit" className={styles.searchSubmit} aria-label="Lancer la recherche">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" fill="none" />
+                  <line
+                    x1="16.65"
+                    y1="16.65"
+                    x2="21"
+                    y2="21"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </form>
+          </div>
+        )}
       </header>
 
       <main id="main-content" className={styles.main}>
