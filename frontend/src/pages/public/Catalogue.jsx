@@ -9,6 +9,7 @@ import Pagination from "../../components/common/Pagination";
 import Loader from "../../components/common/Loader";
 import EmptyState from "../../components/common/EmptyState";
 import Breadcrumb from "../../components/common/Breadcrumb";
+import LookbookStrip from "../../components/public/LookbookStrip";
 import styles from "./Catalogue.module.css";
 
 export default function Catalogue() {
@@ -80,6 +81,8 @@ export default function Catalogue() {
           <Pagination page={meta.page} totalPages={meta.total_pages} onPageChange={goToPage} />
         </>
       )}
+
+      <LookbookStrip />
     </div>
   );
 }
