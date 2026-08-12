@@ -24,10 +24,6 @@ export default function PublicLayout() {
 
       <header className={styles.header}>
         <div className={`container ${styles.headerInner}`}>
-          <Link to="/" className={styles.brand} aria-label="New Generation, accueil">
-            <img src={logoMarque} alt="New Generation" className={styles.logo} />
-          </Link>
-
           <button
             type="button"
             className={styles.menuButton}
@@ -56,6 +52,10 @@ export default function PublicLayout() {
               )}
             </svg>
           </button>
+
+          <Link to="/" className={styles.brand} aria-label="New Generation, accueil">
+            <img src={logoMarque} alt="New Generation" className={styles.logo} />
+          </Link>
 
           <nav
             id="main-navigation"
