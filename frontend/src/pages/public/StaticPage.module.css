@@ -24,31 +24,54 @@
   padding-left: var(--space-md);
 }
 
-.intro {
-  display: flex;
-  align-items: center;
-  gap: var(--space-lg);
-}
-
-.introLogo {
-  width: 380px;
-  height: 380px;
-  flex-shrink: 0;
-  object-fit: cover;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-line);
-}
-
 .introText {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
 }
 
+.brandPanel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  background: var(--color-ink);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.brandLogo {
+  width: 260px;
+  height: 260px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.brandInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  color: var(--color-text-on-ink);
+}
+
+.brandInfo h2 {
+  margin-top: 0;
+  color: var(--color-text-on-ink);
+}
+
+.brandInfo a {
+  color: var(--color-text-on-ink);
+}
+
 @media (max-width: 640px) {
-  .intro {
+  .brandPanel {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .brandLogo {
+    width: 200px;
+    height: 200px;
+    align-self: center;
   }
 }
 
@@ -64,11 +87,11 @@
 
 .socialIcon {
   flex-shrink: 0;
-  color: var(--color-ink);
+  color: currentColor;
 }
 
 .socialUrl {
-  color: var(--color-text-muted);
+  color: var(--color-line);
   word-break: break-all;
 }
 
