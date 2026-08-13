@@ -168,7 +168,7 @@ def _add_variant(db: Session, product: Product, variant_in: ProductVariantIn) ->
 def update_product(db: Session, product_id: int, payload: ProductUpdate) -> Product:
     product = get_product(db, product_id, include_inactive=True)
 
-    data = payload.model_dump(exclude_unset=True)
+    data = payload.model_dump(exclude_unset=True, exclude={"variants"})
     if "category_id" in data and data["category_id"] is not None:
         if db.get(Category, data["category_id"]) is None:
             raise NotFoundError("Catégorie introuvable.")
@@ -178,9 +178,39 @@ def update_product(db: Session, product_id: int, payload: ProductUpdate) -> Prod
     for field, value in data.items():
         setattr(product, field, value)
 
+    if payload.variants is not None:
+        _sync_variants(db, product, payload.variants)
+
     db.commit()
     db.refresh(product)
     return product
+
+
+def _sync_variants(db: Session, product: Product, variants_in: list[ProductVariantIn]) -> None:
+    existing_by_id = {variant.id: variant for variant in product.variants}
+    seen_ids = set()
+
+    for variant_in in variants_in:
+        variant = existing_by_id.get(variant_in.id) if variant_in.id else None
+        if variant is not None:
+            variant.size = variant_in.size
+            variant.color = variant_in.color
+            variant.stock_quantity = variant_in.stock_quantity
+            seen_ids.add(variant.id)
+        else:
+            new_variant = _add_variant(db, product, variant_in)
+            db.flush()
+            seen_ids.add(new_variant.id)
+
+    for variant in list(product.variants):
+        if variant.id in seen_ids:
+            continue
+        has_orders = (
+            db.query(OrderItem).filter(OrderItem.product_variant_id == variant.id).first()
+            is not None
+        )
+        if not has_orders:
+            db.delete(variant)
 
 
 def delete_product(db: Session, product_id: int) -> None:

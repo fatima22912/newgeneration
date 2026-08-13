@@ -6,6 +6,7 @@ from app.schemas.category import CategoryOut
 
 
 class ProductVariantIn(BaseModel):
+    id: int | None = None
     size: str = Field(min_length=1, max_length=20)
     color: str = Field(min_length=1, max_length=50)
     stock_quantity: int = Field(ge=0, default=0)
@@ -45,6 +46,7 @@ class ProductUpdate(BaseModel):
     description: str | None = None
     base_price: Decimal | None = Field(default=None, gt=0)
     is_active: bool | None = None
+    variants: list[ProductVariantIn] | None = None
 
 
 class ProductListItem(BaseModel):
