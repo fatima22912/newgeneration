@@ -110,15 +110,20 @@ export default function PublicLayout() {
             </button>
 
             <Link to="/panier" className={styles.cartLink} aria-label={`Panier, ${totalQuantity} article(s)`}>
-              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                <path
-                  d="M6 8h12l-1 12.1a1 1 0 0 1-1 0.9H8a1 1 0 0 1-1-0.9L6 8Z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinejoin="round"
-                  fill="none"
-                />
-                <path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" strokeWidth="2" fill="none" />
+              <svg
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+                aria-hidden="true"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              >
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
               </svg>
               <span className={styles.cartCount} aria-hidden="true">
                 {totalQuantity}

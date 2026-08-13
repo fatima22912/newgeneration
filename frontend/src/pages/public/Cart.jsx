@@ -19,15 +19,20 @@ export default function Cart() {
       {items.length === 0 ? (
         <EmptyState
           icon={
-            <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
-              <path
-                d="M6 8h12l-1 12.1a1 1 0 0 1-1 0.9H8a1 1 0 0 1-1-0.9L6 8Z"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-                fill="none"
-              />
-              <path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            <svg
+              viewBox="0 0 24 24"
+              width="48"
+              height="48"
+              aria-hidden="true"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
             </svg>
           }
           message="Votre panier est vide."

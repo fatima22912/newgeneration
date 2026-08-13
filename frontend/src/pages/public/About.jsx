@@ -24,6 +24,10 @@ export default function About() {
           </p>
         </div>
 
+        <div className={styles.brandLogoBox}>
+          <img src={logoMarqueDark} alt="New Generation" className={styles.brandLogo} />
+        </div>
+
         <div>
           <h2>Nos boutiques</h2>
           <ul>
@@ -31,9 +35,7 @@ export default function About() {
               <li key={address}>{address}</li>
             ))}
           </ul>
-        </div>
 
-        <div>
           <h2>Nous suivre</h2>
           <ul className={styles.socialList}>
             <li>
@@ -88,10 +90,6 @@ export default function About() {
               </a>
             </li>
           </ul>
-        </div>
-
-        <div className={styles.brandLogoBox}>
-          <img src={logoMarqueDark} alt="New Generation" className={styles.brandLogo} />
         </div>
       </div>
     </div>
