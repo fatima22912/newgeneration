@@ -7,3 +7,8 @@
   text-align: center;
   color: var(--color-text-muted);
 }
+
+.icon {
+  display: flex;
+  color: var(--color-line-strong);
+}

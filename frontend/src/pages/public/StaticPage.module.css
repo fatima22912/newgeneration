@@ -1,5 +1,5 @@
 .page {
-  max-width: 720px;
+  max-width: 1100px;
   padding-top: var(--space-md);
   padding-bottom: var(--space-2xl);
   display: flex;
@@ -30,47 +30,39 @@
   gap: var(--space-md);
 }
 
-.brandPanel {
+.brandRow {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+}
+
+.brandRow > * {
+  flex: 1 1 220px;
+}
+
+.brandLogoBox {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: var(--space-xl);
+  justify-content: center;
   background: var(--color-ink);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  padding: var(--space-md);
 }
 
 .brandLogo {
-  width: 260px;
-  height: 260px;
-  flex-shrink: 0;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
 }
 
-.brandInfo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  color: var(--color-text-on-ink);
-}
-
-.brandInfo h2 {
-  margin-top: 0;
-  color: var(--color-text-on-ink);
-}
-
-.brandInfo a {
-  color: var(--color-text-on-ink);
-}
-
 @media (max-width: 640px) {
-  .brandPanel {
+  .brandRow {
     flex-direction: column;
-    align-items: flex-start;
   }
 
-  .brandLogo {
-    width: 200px;
-    height: 200px;
+  .brandLogoBox {
     align-self: center;
   }
 }
@@ -87,11 +79,11 @@
 
 .socialIcon {
   flex-shrink: 0;
-  color: currentColor;
+  color: var(--color-ink);
 }
 
 .socialUrl {
-  color: var(--color-line);
+  color: var(--color-text-muted);
   word-break: break-all;
 }
 
