@@ -10,7 +10,6 @@ export default function About() {
       <h1>À propos de New Generation</h1>
 
       <div className={styles.intro}>
-        <img src={logoMarque} alt="New Generation" className={styles.introLogo} />
         <div className={styles.introText}>
           <p>
             New Generation est une boutique de prêt-à-porter urbain basée à Dakar, spécialisée
@@ -22,6 +21,7 @@ export default function About() {
             et identité pour créer des pièces qui racontent une histoire.
           </p>
         </div>
+        <img src={logoMarque} alt="New Generation" className={styles.introLogo} />
       </div>
       <p className={styles.tagline}>NEW GENERATION. STORYCHANGERS.</p>
 
