@@ -7,11 +7,6 @@ export default function TermsOfSale() {
       <Breadcrumb items={[{ label: "Accueil", to: "/" }, { label: "Conditions générales de vente" }]} />
       <h1>Conditions générales de vente</h1>
 
-      <p className={styles.placeholderNote}>
-        [Contenu temporaire — les conditions générales de vente définitives seront fournies
-        séparément par la boutique.]
-      </p>
-
       <h2>Commandes</h2>
       <p>
         Les commandes sont passées sans obligation de création de compte. Un numéro de commande
@@ -22,7 +17,12 @@ export default function TermsOfSale() {
       <p>Le paiement s'effectue via Wave, Orange Money, ou directement en boutique.</p>
 
       <h2>Livraison</h2>
-      <p className={styles.placeholderNote}>[Modalités de livraison à préciser.]</p>
+      <p>
+        À Dakar, la livraison s'effectue sous un délai maximum de 48h. Dans les régions, comptez
+        3 à 5 jours maximum. Pour l'international, la livraison se fait sous le contrôle d'un GP
+        (Go and Pay).
+      </p>
+      <p>Le prix de la livraison varie selon la zone.</p>
     </div>
   );
 }
