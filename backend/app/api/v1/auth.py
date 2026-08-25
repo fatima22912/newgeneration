@@ -23,7 +23,11 @@ def _set_refresh_cookie(response: Response, refresh_token: str) -> None:
         value=refresh_token,
         httponly=True,
         secure=settings.refresh_cookie_secure,
-        samesite="lax",
+        # Frontend et backend sont sur des domaines différents en production
+        # (ex. Vercel + Render) : le cookie doit être SameSite=None pour être
+        # envoyé sur ces appels cross-site. En local (cookie non Secure), Lax
+        # suffit et évite d'exiger HTTPS en développement.
+        samesite="none" if settings.refresh_cookie_secure else "lax",
         max_age=settings.refresh_token_expire_days * 24 * 60 * 60,
         path="/api/v1/auth",
     )
@@ -87,7 +91,12 @@ def refresh(request: Request, response: Response, db: Session = Depends(get_db))
 
 @router.post("/logout")
 def logout(response: Response) -> dict:
-    response.delete_cookie(settings.refresh_cookie_name, path="/api/v1/auth")
+    response.delete_cookie(
+        settings.refresh_cookie_name,
+        path="/api/v1/auth",
+        secure=settings.refresh_cookie_secure,
+        samesite="none" if settings.refresh_cookie_secure else "lax",
+    )
     return {"data": {"message": "Déconnexion réussie."}}
 
 
