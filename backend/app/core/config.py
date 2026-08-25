@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     @field_validator("database_url")
     @classmethod
     def _use_pymysql_driver(cls, v: str) -> str:
+        # Les interfaces web des hébergeurs (Render, Railway...) laissent parfois
+        # un espace/retour à la ligne parasite lors du copier-coller de la valeur.
+        v = v.strip()
         # Railway (et d'autres hébergeurs) fournissent une URL mysql:// brute ;
         # le driver installé est PyMySQL, qui nécessite le préfixe mysql+pymysql://.
         if v.startswith("mysql://"):
