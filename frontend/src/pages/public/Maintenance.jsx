@@ -1,4 +1,4 @@
-import backgroundPhoto from "../../assets/lookbook/shoot-07.jpeg";
+import backgroundPhoto from "../../assets/lookbook/shoot-02.jpeg";
 import logo from "../../assets/images/logo-marque-dark.png";
 import styles from "./Maintenance.module.css";
 
@@ -18,10 +18,11 @@ export default function Maintenance() {
         </div>
 
         <span className={styles.eyebrow}>Maintenance en cours</span>
-        <h1 className={styles.title}>On revient très vite</h1>
+        <h1 className={styles.title}>On revient en force</h1>
         <p className={styles.subtitle}>
-          New Generation fait peau neuve. Notre boutique est momentanément en pause le
-          temps de quelques réglages — repassez très bientôt pour découvrir la suite.
+          New Generation prépare son grand retour avec une toute nouvelle collection.
+          Notre boutique est en pause le temps des derniers réglages — restez connectés,
+          ça arrive très vite.
         </p>
         <p className={styles.footnote}>Merci de votre patience.</p>
       </div>

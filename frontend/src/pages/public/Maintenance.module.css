@@ -13,8 +13,8 @@
   inset: 0;
   background-image: var(--maintenance-bg-image);
   background-size: cover;
-  background-position: center 20%;
-  filter: saturate(0.75) brightness(0.6);
+  background-position: center 30%;
+  filter: saturate(0.8) brightness(0.72);
   transform: scale(1.06);
 }
 
@@ -22,8 +22,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(60% 60% at 50% 42%, rgba(20, 20, 20, 0.35) 0%, rgba(10, 10, 10, 0.78) 62%, rgba(8, 8, 8, 0.95) 100%),
-    linear-gradient(180deg, rgba(8, 8, 8, 0.55) 0%, rgba(8, 8, 8, 0.35) 35%, rgba(8, 8, 8, 0.85) 100%);
+    radial-gradient(55% 45% at 50% 32%, rgba(20, 20, 20, 0.3) 0%, rgba(10, 10, 10, 0.72) 65%, rgba(8, 8, 8, 0.9) 100%),
+    linear-gradient(180deg, rgba(8, 8, 8, 0.35) 0%, rgba(8, 8, 8, 0.15) 30%, rgba(8, 8, 8, 0.92) 100%);
 }
 
 .content {
