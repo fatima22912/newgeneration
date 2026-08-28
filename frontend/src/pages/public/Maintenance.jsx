@@ -3,7 +3,7 @@ import backgroundPhoto from "../../assets/lookbook/shoot-02.jpeg";
 import logo from "../../assets/images/logo-marque-dark.png";
 import styles from "./Maintenance.module.css";
 
-const COUNTDOWN_TARGET = new Date("2026-09-12T00:00:00");
+const COUNTDOWN_TARGET = new Date("2026-09-27T00:00:00");
 
 function getTimeLeft() {
   const diff = COUNTDOWN_TARGET.getTime() - Date.now();
