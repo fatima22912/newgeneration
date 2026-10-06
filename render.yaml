@@ -1,14 +1,54 @@
 services:
+  # Private MySQL 8 service on Render, backed by a persistent disk.
+  - type: pserv
+    name: new-generation-mysql
+    runtime: docker
+    repo: https://github.com/render-examples/mysql.git
+    branch: main
+    plan: standard
+    autoDeploy: false
+    disk:
+      name: new-generation-mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+    envVars:
+      - key: MYSQL_DATABASE
+        value: new_generation
+      - key: MYSQL_USER
+        value: new_generation_app
+      - key: MYSQL_PASSWORD
+        generateValue: true
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+
   - type: web
     name: new-generation-backend
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
-    plan: free
+    plan: starter
     healthCheckPath: /health
+    disk:
+      name: new-generation-uploads
+      mountPath: /app/uploads
+      sizeGB: 5
     envVars:
-      - key: DATABASE_URL
-        sync: false
+      - key: DATABASE_HOST
+        fromService:
+          name: new-generation-mysql
+          type: pserv
+          property: host
+      - key: DATABASE_PORT
+        value: "3306"
+      - key: DATABASE_NAME
+        value: new_generation
+      - key: DATABASE_USER
+        value: new_generation_app
+      - key: DATABASE_PASSWORD
+        fromService:
+          name: new-generation-mysql
+          type: pserv
+          envVarKey: MYSQL_PASSWORD
       - key: JWT_SECRET_KEY
         generateValue: true
       - key: JWT_ALGORITHM

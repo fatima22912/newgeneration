@@ -1,25 +1,51 @@
 from functools import lru_cache
 
-from pydantic import field_validator
+from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from sqlalchemy.engine import URL
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
-    database_url: str
+    database_url: str | None = None
+    database_host: str | None = None
+    database_port: int = 3306
+    database_name: str | None = None
+    database_user: str | None = None
+    database_password: str | None = None
 
-    @field_validator("database_url")
-    @classmethod
-    def _use_pymysql_driver(cls, v: str) -> str:
-        # Les interfaces web des hébergeurs (Render, Railway...) laissent parfois
-        # un espace/retour à la ligne parasite lors du copier-coller de la valeur.
-        v = v.strip()
-        # Railway (et d'autres hébergeurs) fournissent une URL mysql:// brute ;
-        # le driver installé est PyMySQL, qui nécessite le préfixe mysql+pymysql://.
-        if v.startswith("mysql://"):
-            return "mysql+pymysql://" + v[len("mysql://") :]
-        return v
+    @model_validator(mode="after")
+    def _configure_database_url(self) -> "Settings":
+        # Render Blueprint wires the private MySQL host and generated password
+        # as separate environment variables. Local development can keep using
+        # DATABASE_URL as before.
+        if self.database_host:
+            required = {
+                "DATABASE_NAME": self.database_name,
+                "DATABASE_USER": self.database_user,
+                "DATABASE_PASSWORD": self.database_password,
+            }
+            missing = [name for name, value in required.items() if not value]
+            if missing:
+                raise ValueError(f"Missing database settings: {', '.join(missing)}")
+            self.database_url = URL.create(
+                drivername="mysql+pymysql",
+                username=self.database_user,
+                password=self.database_password,
+                host=self.database_host.strip(),
+                port=self.database_port,
+                database=self.database_name,
+            ).render_as_string(hide_password=False)
+        elif self.database_url:
+            self.database_url = self.database_url.strip()
+            # Some providers give a mysql:// URI; PyMySQL needs this SQLAlchemy
+            # driver name. This keeps DATABASE_URL compatible with Aiven too.
+            if self.database_url.startswith("mysql://"):
+                self.database_url = "mysql+pymysql://" + self.database_url[len("mysql://") :]
+        else:
+            raise ValueError("Set DATABASE_URL or the DATABASE_HOST connection settings")
+        return self
 
     jwt_secret_key: str
     jwt_algorithm: str = "HS256"
@@ -42,6 +68,11 @@ class Settings(BaseSettings):
 
     environment: str = "development"
     rate_limiting_enabled: bool = True
+
+    @field_validator("database_url")
+    @classmethod
+    def _strip_database_url(cls, value: str | None) -> str | None:
+        return value.strip() if value else value
 
     @property
     def cors_origins_list(self) -> list[str]:
