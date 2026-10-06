@@ -95,7 +95,7 @@ def migrate() -> None:
                             table.insert(), [dict(row._mapping) for row in batch]
                         )
                         copied += len(batch)
-                    print(f"{table.name}: {copied} ligne(s) copiÃ©e(s)")
+                    print(f"{table.name}: {copied} rows copied")
 
                 transaction.commit()
             except Exception:
@@ -104,8 +104,7 @@ def migrate() -> None:
             finally:
                 target_connection.exec_driver_sql("SET FOREIGN_KEY_CHECKS=1")
                 target_connection.commit()
-
-        print("Migration terminÃ©e. La table alembic_version du Render reste intacte.")
+        print("Migration complete. The Render alembic_version table was preserved.")
     finally:
         source_engine.dispose()
         target_engine.dispose()
