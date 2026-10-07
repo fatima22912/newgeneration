@@ -18,3 +18,8 @@ class TokenResponse(BaseModel):
 class ChangePasswordRequest(BaseModel):
     current_password: str
     new_password: str = Field(min_length=12)
+
+
+class AdminRecoveryRequest(BaseModel):
+    email: EmailStr
+    new_password: str = Field(min_length=12)

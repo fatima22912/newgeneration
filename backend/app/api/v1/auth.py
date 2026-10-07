@@ -1,15 +1,21 @@
+import hashlib
+import hmac
+
 import jwt
-from fastapi import APIRouter, Depends, Request, Response
+from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.core.dependencies import get_current_user
 from app.core.exceptions import UnauthorizedError
 from app.core.rate_limit import limiter
-from app.core.security import decode_token
+from app.core.security import decode_token, hash_password
 from app.db.session import get_db
+from app.models.activity_log import ActivityLog
+from app.models.admin_recovery_use import AdminRecoveryUse
 from app.models.user import User, UserRole
-from app.schemas.auth import ChangePasswordRequest, LoginRequest, TokenResponse
+from app.schemas.auth import AdminRecoveryRequest, ChangePasswordRequest, LoginRequest, TokenResponse
 from app.schemas.user import UserPublicOut
 from app.services import auth_service
 
@@ -98,6 +104,51 @@ def logout(response: Response) -> dict:
         samesite="none" if settings.refresh_cookie_secure else "lax",
     )
     return {"data": {"message": "Déconnexion réussie."}}
+
+
+@router.post("/admin/recover-password")
+@limiter.limit("5/hour")
+def recover_admin_password(
+    request: Request,
+    payload: AdminRecoveryRequest,
+    recovery_token: str | None = Header(default=None, alias="X-Admin-Recovery-Token"),
+    db: Session = Depends(get_db),
+) -> dict:
+    configured_token = settings.admin_recovery_token
+    if not configured_token or len(configured_token) < 32:
+        raise HTTPException(status_code=404, detail="Procédure indisponible.")
+
+    if not recovery_token or not hmac.compare_digest(recovery_token, configured_token):
+        raise UnauthorizedError("Jeton de récupération invalide ou déjà utilisé.")
+
+    user = (
+        db.query(User)
+        .filter(User.email == str(payload.email).lower(), User.role == UserRole.admin)
+        .first()
+    )
+    if user is None:
+        raise UnauthorizedError("Jeton de récupération invalide ou déjà utilisé.")
+
+    fingerprint = hashlib.sha256(configured_token.encode("utf-8")).hexdigest()
+    db.add(AdminRecoveryUse(token_fingerprint=fingerprint))
+    user.password_hash = hash_password(payload.new_password)
+    user.failed_login_attempts = 0
+    user.locked_until = None
+    db.add(
+        ActivityLog(
+            action="admin.password_reset.recovery",
+            entity_type="user",
+            entity_id=user.id,
+            ip_address=request.client.host if request.client else None,
+        )
+    )
+    try:
+        db.commit()
+    except IntegrityError as exc:
+        db.rollback()
+        raise UnauthorizedError("Jeton de récupération invalide ou déjà utilisé.") from exc
+
+    return {"data": {"message": "Mot de passe administrateur réinitialisé."}}
 
 
 @router.post("/change-password")

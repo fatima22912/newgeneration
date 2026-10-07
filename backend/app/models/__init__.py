@@ -1,4 +1,5 @@
 from app.models.activity_log import ActivityLog
+from app.models.admin_recovery_use import AdminRecoveryUse
 from app.models.category import Category
 from app.models.contact_message import ContactMessage
 from app.models.order import Order, OrderStatus, PaymentMethod
@@ -11,6 +12,7 @@ from app.models.user import User, UserRole
 
 __all__ = [
     "ActivityLog",
+    "AdminRecoveryUse",
     "Category",
     "ContactMessage",
     "Order",

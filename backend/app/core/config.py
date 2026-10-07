@@ -59,6 +59,8 @@ class Settings(BaseSettings):
 
     max_failed_login_attempts: int = 5
     account_lock_minutes: int = 15
+    # Set temporarily in the hosting dashboard to enable one-time admin recovery.
+    admin_recovery_token: str | None = None
 
     upload_dir: str = "uploads"
     max_upload_size_mb: int = 5

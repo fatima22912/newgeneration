@@ -110,3 +110,14 @@ Après le premier déploiement du Blueprint :
 Les photos téléchargées sont des fichiers dans `backend/uploads`, pas des données SQL. Le disque Render conserve les prochains téléversements ; les anciens fichiers doivent être copiés séparément ou les photos rechargées depuis l’espace propriétaire.
 
 Dans Vercel, `VITE_API_BASE_URL` doit pointer vers l’URL publique du backend Render suivie de `/api/v1`. Dans Render, `CORS_ORIGINS` doit contenir l’origine exacte du site Vercel (sans chemin), par exemple `https://nom-du-site.vercel.app`.
+
+### Récupération exceptionnelle du compte administrateur
+
+Si le mot de passe administrateur est perdu et que le shell Render n’est pas disponible :
+
+1. Déployez le backend avec cette version du code. Le démarrage applique automatiquement la migration qui permet de marquer le jeton comme utilisé.
+2. Dans **Render → service `new-generation-backend` → Environment**, ajoutez `ADMIN_RECOVERY_TOKEN` avec une valeur aléatoire d’au moins 32 caractères. Par exemple, dans PowerShell local : `$recoveryToken = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))`. Ne publiez pas cette valeur.
+3. Laissez Render redéployer le backend. Ouvrez ensuite `https://<url-du-backend>/docs`, développez `POST /api/v1/auth/admin/recover-password`, puis **Try it out**. Saisissez l’adresse e-mail du compte admin et un nouveau mot de passe d’au moins 12 caractères. Dans le champ `X-Admin-Recovery-Token`, collez la valeur de `ADMIN_RECOVERY_TOKEN`, puis exécutez la requête.
+4. Après la réponse de succès, supprimez immédiatement `ADMIN_RECOVERY_TOKEN` des variables Render et redéployez. La route redevient indisponible. Le jeton ne peut aussi réussir qu’une seule fois, même avant sa suppression.
+
+Cette route ne renvoie jamais le mot de passe ni le jeton. Elle réinitialise aussi le verrouillage du compte et journalise l’action. Gardez le jeton secret et ne le mettez ni dans Git ni dans le chat.
