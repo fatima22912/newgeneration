@@ -64,9 +64,6 @@ class Settings(BaseSettings):
 
     upload_dir: str = "uploads"
     max_upload_size_mb: int = 5
-    supabase_url: str | None = None
-    supabase_service_role_key: str | None = None
-    supabase_storage_bucket: str = "product-images"
 
     default_page_size: int = 20
     max_page_size: int = 100

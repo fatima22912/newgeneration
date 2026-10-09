@@ -1,8 +1,7 @@
 import os
 import uuid
 
-import httpx
-from fastapi import APIRouter, Depends, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, UploadFile
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
@@ -32,38 +31,12 @@ async def upload_product_image(
     extension = validate_image_upload(content)
 
     filename = f"{uuid.uuid4().hex}.{extension}"
-    if settings.supabase_url and settings.supabase_service_role_key:
-        base_url = settings.supabase_url.rstrip("/")
-        bucket = settings.supabase_storage_bucket
-        object_path = f"products/{product_id}/{filename}"
-        headers = {
-            "Authorization": f"Bearer {settings.supabase_service_role_key}",
-            "apikey": settings.supabase_service_role_key,
-            "Content-Type": file.content_type or "application/octet-stream",
-            "x-upsert": "false",
-        }
-        try:
-            async with httpx.AsyncClient(timeout=30) as client:
-                response = await client.post(
-                    f"{base_url}/storage/v1/object/{bucket}/{object_path}",
-                    content=content,
-                    headers=headers,
-                )
-                response.raise_for_status()
-        except httpx.HTTPError as exc:
-            raise HTTPException(
-                status_code=502,
-                detail="Impossible d’enregistrer l’image dans le stockage distant.",
-            ) from exc
-        image_url = f"{base_url}/storage/v1/object/public/{bucket}/{object_path}"
-    else:
-        os.makedirs(settings.upload_dir, exist_ok=True)
-        file_path = os.path.join(settings.upload_dir, filename)
-        with open(file_path, "wb") as f:
-            f.write(content)
-        image_url = f"/uploads/{filename}"
+    os.makedirs(settings.upload_dir, exist_ok=True)
+    file_path = os.path.join(settings.upload_dir, filename)
+    with open(file_path, "wb") as f:
+        f.write(content)
 
-    image = product_service.add_product_image(db, product_id, image_url)
+    image = product_service.add_product_image(db, product_id, f"/uploads/{filename}")
     log_action(
         db, user=user, action="product.image_added", entity_type="product", entity_id=product_id
     )
