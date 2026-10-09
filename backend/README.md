@@ -109,6 +109,8 @@ Après le premier déploiement du Blueprint :
 
 Les photos téléchargées sont des fichiers dans `backend/uploads`, pas des données SQL. Le disque Render conserve les prochains téléversements ; les anciens fichiers doivent être copiés séparément ou les photos rechargées depuis l’espace propriétaire.
 
+Pour configurer le stockage distant, cr?ez un bucket public nomm? `product-images` dans Supabase Storage. Ajoutez ensuite `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (cl? secr?te) et `SUPABASE_STORAGE_BUCKET=product-images` aux variables d'environnement du backend Render. Ne partagez jamais la cl? secr?te et ne la mettez pas dans le frontend ou Git.
+
 Dans Vercel, `VITE_API_BASE_URL` doit pointer vers l’URL publique du backend Render suivie de `/api/v1`. Dans Render, `CORS_ORIGINS` doit contenir l’origine exacte du site Vercel (sans chemin), par exemple `https://nom-du-site.vercel.app`.
 
 ### Récupération exceptionnelle du compte administrateur
