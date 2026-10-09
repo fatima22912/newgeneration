@@ -198,12 +198,34 @@
 }
 
 .footerCredit {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border-top: 1px solid rgba(247, 246, 244, 0.14);
   padding: var(--space-md);
+  background-color: var(--color-ink);
   text-align: center;
 }
 
+.footerCredit::before {
+  position: absolute;
+  z-index: -1;
+  inset: -36px;
+  background-image: url("../assets/images/logo-marque-dark.png");
+  background-position: center 48%;
+  background-repeat: no-repeat;
+  background-size: auto 230%;
+  content: "";
+  filter: blur(9px);
+  opacity: 0.24;
+  mix-blend-mode: screen;
+  transform: scale(1.08);
+  pointer-events: none;
+}
+
 .footerCredit p {
+  position: relative;
+  z-index: 1;
   font-size: var(--font-size-xs);
   color: rgba(247, 246, 244, 0.65);
 }
