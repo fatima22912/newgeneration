@@ -5,7 +5,7 @@ import styles from "./ImageUploader.module.css";
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_SIZE_MB = 5;
 
-export default function ImageUploader({ images = [], onUpload, isUploading }) {
+export default function ImageUploader({ images = [], onUpload, onDelete, isUploading, deletingImageId }) {
   const id = useId();
   const [error, setError] = useState(null);
 
@@ -32,7 +32,19 @@ export default function ImageUploader({ images = [], onUpload, isUploading }) {
 
       <div className={styles.grid}>
         {images.map((image) => (
-          <img key={image.id} src={resolveImageUrl(image.image_url)} alt="" className={styles.thumb} />
+          <div key={image.id} className={styles.imageItem}>
+            <img src={resolveImageUrl(image.image_url)} alt="Photo du produit" className={styles.thumb} />
+            <button
+              type="button"
+              className={styles.removeButton}
+              onClick={() => onDelete(image)}
+              disabled={isUploading || deletingImageId === image.id}
+              aria-label="Supprimer cette photo"
+              title="Supprimer cette photo"
+            >
+              {deletingImageId === image.id ? "…" : "×"}
+            </button>
+          </div>
         ))}
         {images.length === 0 && <p className={styles.placeholder}>Aucune photo pour l'instant.</p>}
       </div>

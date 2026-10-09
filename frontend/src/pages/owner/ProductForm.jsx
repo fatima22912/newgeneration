@@ -5,6 +5,7 @@ import { useToast } from "../../components/common/ToastProvider";
 import { listCategories } from "../../services/api/categoryService";
 import {
   createProduct,
+  deleteProductImage,
   getProduct,
   updateProduct,
   uploadProductImage,
@@ -43,6 +44,7 @@ export default function ProductForm() {
   const [images, setImages] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [deletingImageId, setDeletingImageId] = useState(null);
 
   useEffect(() => {
     if (productResponse?.data) {
@@ -94,6 +96,21 @@ export default function ProductForm() {
       showToast("Échec de l'envoi de l'image.", "error");
     } finally {
       setIsUploading(false);
+    }
+  }
+
+  async function handleDeleteImage(image) {
+    if (!window.confirm("Supprimer cette photo du produit ?")) return;
+
+    setDeletingImageId(image.id);
+    try {
+      await deleteProductImage(id, image.id);
+      setImages((current) => current.filter((item) => item.id !== image.id));
+      showToast("Photo supprimée.", "success");
+    } catch {
+      showToast("Impossible de supprimer cette photo.", "error");
+    } finally {
+      setDeletingImageId(null);
     }
   }
 
@@ -170,7 +187,13 @@ export default function ProductForm() {
         <ProductVariantEditor variants={form.variants} onChange={(v) => updateField("variants", v)} />
 
         {isEditing && (
-          <ImageUploader images={images} onUpload={handleUploadImage} isUploading={isUploading} />
+          <ImageUploader
+            images={images}
+            onUpload={handleUploadImage}
+            onDelete={handleDeleteImage}
+            isUploading={isUploading}
+            deletingImageId={deletingImageId}
+          />
         )}
 
         <div className={styles.actions}>

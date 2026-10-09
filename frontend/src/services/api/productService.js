@@ -181,3 +181,15 @@ export async function uploadProductImage(id, file) {
   }
   return uploadFile(`/products/${id}/images`, file);
 }
+
+export async function deleteProductImage(productId, imageId) {
+  if (env.useMocks) {
+    const product = mockStore.find((p) => p.id === Number(productId));
+    if (product) {
+      product.images = product.images.filter((image) => image.id !== Number(imageId));
+      persist();
+    }
+    return simulateDelay(null);
+  }
+  await httpClient.delete(`/products/${productId}/images/${imageId}`);
+}

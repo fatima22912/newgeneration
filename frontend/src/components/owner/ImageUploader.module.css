@@ -22,6 +22,38 @@
   border: 1px solid var(--color-line);
 }
 
+.imageItem {
+  position: relative;
+  width: 96px;
+  height: 96px;
+}
+
+.removeButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  background: rgb(20 20 20 / 78%);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.removeButton:hover:not(:disabled) {
+  background: var(--color-danger);
+}
+
+.removeButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
 .placeholder {
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
