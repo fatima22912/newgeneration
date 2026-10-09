@@ -47,15 +47,78 @@
   pointer-events: none;
 }
 
-.heroLogo {
-  --logo-opacity: 0.68;
-
+.heroOrbit {
   position: absolute;
   z-index: 0;
   top: 50%;
   left: 50%;
-  width: min(94vw, calc((100vh - var(--header-height)) * 1.12));
-  width: min(94vw, calc((100svh - var(--header-height)) * 1.12));
+  width: min(90vw, calc((100vh - var(--header-height)) * 0.96));
+  width: min(90vw, calc((100svh - var(--header-height)) * 0.96));
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.025), inset 0 0 70px rgba(200, 16, 46, 0.09);
+  transform: translate(-50%, -50%);
+  animation: orbitTurn 42s linear infinite;
+  pointer-events: none;
+}
+
+.heroOrbit::before,
+.heroOrbit::after {
+  position: absolute;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  content: "";
+}
+
+.heroOrbit::before {
+  inset: 5%;
+  border-top-color: rgba(255, 255, 255, 0.4);
+  border-right-color: rgba(255, 255, 255, 0.16);
+}
+
+.heroOrbit::after {
+  inset: -4%;
+  border-top-color: var(--color-accent);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+  transform: rotate(-32deg);
+}
+
+.orbitLabel {
+  position: absolute;
+  top: 1.5%;
+  left: 50%;
+  padding: 0.35rem 0.8rem;
+  background: #111;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.orbitSpark {
+  position: absolute;
+  top: 17%;
+  right: 12%;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 20px rgba(200, 16, 46, 0.9);
+}
+
+.heroLogo {
+  --logo-opacity: 0.68;
+
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: min(100vw, calc((100vh - var(--header-height)) * 1.2));
+  width: min(100vw, calc((100svh - var(--header-height)) * 1.2));
   height: auto;
   mix-blend-mode: screen;
   opacity: var(--logo-opacity);
@@ -98,11 +161,12 @@
   max-width: 850px;
   margin: 0 0 1.35rem;
   color: #fff;
-  font-size: clamp(2.6rem, 5.2vw, 4.7rem);
-  font-weight: 800;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-  text-wrap: balance;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.45;
+  text-transform: none;
 }
 
 .heroTitle span {
@@ -113,8 +177,10 @@
   max-width: 500px;
   margin: 0 0 2rem;
   color: rgba(255, 255, 255, 0.8);
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
-  line-height: 1.7;
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
 }
 
 .heroActions {
@@ -259,9 +325,19 @@
   .heroLogo {
     top: 50%;
     left: 50%;
-    width: min(130vw, calc((100vh - var(--header-height)) * 1.12));
-    width: min(130vw, calc((100svh - var(--header-height)) * 1.12));
+    width: min(150vw, calc((100vh - var(--header-height)) * 1.2));
+    width: min(150vw, calc((100svh - var(--header-height)) * 1.2));
     --logo-opacity: 0.43;
+  }
+
+  .heroOrbit {
+    width: min(110vw, calc((100vh - var(--header-height)) * 0.82));
+    width: min(110vw, calc((100svh - var(--header-height)) * 0.82));
+  }
+
+  .orbitLabel {
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
   }
 
   .heroInner {
@@ -270,7 +346,7 @@
   }
 
   .heroTitle {
-    font-size: clamp(2.35rem, 9vw, 3.5rem);
+    font-size: 14px;
   }
 
   .heroText {
@@ -289,6 +365,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .heroPhoto,
+  .heroOrbit,
   .heroLogo,
   .heroInner,
   .scrollCueLine {
@@ -324,15 +401,24 @@
 @keyframes logoGreeting {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(-270deg) scale(0.5);
+    transform: translate(-50%, -50%) rotate(-360deg) scale(0.54);
   }
-  72% {
+  76% {
     opacity: var(--logo-opacity);
-    transform: translate(-50%, -50%) rotate(12deg) scale(1.04);
+    transform: translate(-50%, -50%) rotate(9deg) scale(1.035);
   }
   100% {
     opacity: var(--logo-opacity);
     transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes orbitTurn {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
   }
 }
 

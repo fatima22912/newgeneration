@@ -25,6 +25,10 @@ export default function Home() {
       <section className={styles.hero} aria-labelledby="home-hero-title">
         <img className={styles.heroPhoto} src={heroPhoto} alt="" fetchPriority="high" />
         <div className={styles.heroShade} aria-hidden="true" />
+        <div className={styles.heroOrbit} aria-hidden="true">
+          <span className={styles.orbitLabel}>NEW GENERATION · DAKAR 221</span>
+          <span className={styles.orbitSpark} />
+        </div>
         <img className={styles.heroLogo} src={heroLogo} alt="" aria-hidden="true" />
 
         <div className={`container ${styles.heroInner}`}>
@@ -37,7 +41,7 @@ export default function Home() {
             <span>notre génération.</span>
           </h1>
           <p className={styles.heroText}>
-            Le style urbain, l’énergie de Dakar, une génération qui avance à sa façon.
+            YOUTH WRITES ITS STORY.
           </p>
           <div className={styles.heroActions}>
             <Link to="/catalogue" className={styles.heroLink}>
@@ -53,7 +57,7 @@ export default function Home() {
           <span className={styles.scrollCueLine} aria-hidden="true" />
           <span>Explorer</span>
         </a>
-        <p className={styles.heroSideNote} aria-hidden="true">YOUTH WRITES ITS STORY</p>
+        <p className={styles.heroSideNote} aria-hidden="true">DAKAR · 221</p>
       </section>
 
       <section id="home-categories" className={`container ${styles.section}`}>
