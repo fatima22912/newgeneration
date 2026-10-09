@@ -25,17 +25,9 @@ export default function Home() {
       <section className={styles.hero} aria-labelledby="home-hero-title">
         <img className={styles.heroPhoto} src={heroPhoto} alt="" fetchPriority="high" />
         <div className={styles.heroShade} aria-hidden="true" />
-        <div className={styles.heroOrbit} aria-hidden="true">
-          <span className={styles.orbitLabel}>NEW GENERATION · DAKAR 221</span>
-          <span className={styles.orbitSpark} />
-        </div>
         <img className={styles.heroLogo} src={heroLogo} alt="" aria-hidden="true" />
 
         <div className={`container ${styles.heroInner}`}>
-          <p className={styles.heroEyebrow}>
-            <span className={styles.eyebrowLine} aria-hidden="true" />
-            New Generation <span aria-hidden="true">·</span> Dakar
-          </p>
           <h1 id="home-hero-title" className={styles.heroTitle}>
             Bienvenue dans<br />
             <span>notre génération.</span>
@@ -53,10 +45,6 @@ export default function Home() {
           </div>
         </div>
 
-        <a className={styles.scrollCue} href="#home-categories" aria-label="Défiler vers les catégories">
-          <span className={styles.scrollCueLine} aria-hidden="true" />
-          <span>Explorer</span>
-        </a>
         <p className={styles.heroSideNote} aria-hidden="true">DAKAR · 221</p>
       </section>
 
