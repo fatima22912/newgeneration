@@ -3,8 +3,8 @@
   flex-direction: column;
   background-color: var(--color-paper);
   transition: transform 0.2s ease, opacity 0.2s ease;
-  opacity: 0;
-  transform: translateY(24px) scale(0.98);
+  opacity: 1;
+  transform: none;
 }
 
 .visible {
