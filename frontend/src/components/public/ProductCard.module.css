@@ -17,28 +17,19 @@
 @media (prefers-reduced-motion: no-preference) {
   .card {
     opacity: 0;
-    animation: cardIn 0.5s ease forwards;
+    animation: cardIn 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    animation-delay: min(calc(var(--card-index, 0) * 55ms), 550ms);
   }
-
-  .card:nth-child(1) { animation-delay: 0.03s; }
-  .card:nth-child(2) { animation-delay: 0.09s; }
-  .card:nth-child(3) { animation-delay: 0.15s; }
-  .card:nth-child(4) { animation-delay: 0.21s; }
-  .card:nth-child(5) { animation-delay: 0.27s; }
-  .card:nth-child(6) { animation-delay: 0.33s; }
-  .card:nth-child(7) { animation-delay: 0.39s; }
-  .card:nth-child(8) { animation-delay: 0.45s; }
-  .card:nth-child(n + 9) { animation-delay: 0.5s; }
 }
 
 @keyframes cardIn {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(18px) scale(0.985);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 

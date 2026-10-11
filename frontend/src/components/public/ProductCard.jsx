@@ -3,13 +3,17 @@ import { formatPrice } from "../../utils/formatters";
 import { resolveImageUrl } from "../../utils/media";
 import styles from "./ProductCard.module.css";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, animationIndex = 0 }) {
   const image = resolveImageUrl(product.images?.[0]?.image_url);
   const hoverImage = resolveImageUrl(product.images?.[1]?.image_url);
   const totalStock = (product.variants || []).reduce((sum, v) => sum + v.stock_quantity, 0);
 
   return (
-    <Link to={`/produits/${product.slug}`} className={styles.card}>
+    <Link
+      to={`/produits/${product.slug}`}
+      className={styles.card}
+      style={{ "--card-index": animationIndex }}
+    >
       <div className={styles.imageWrapper}>
         {image ? (
           <>

@@ -1,10 +1,9 @@
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
-import { listProducts } from "../../services/api/productService";
+import { listAllProducts } from "../../services/api/productService";
 import ProductCard from "../../components/public/ProductCard";
 import SortSelector from "../../components/public/SortSelector";
-import Pagination from "../../components/common/Pagination";
 import Loader from "../../components/common/Loader";
 import EmptyState from "../../components/common/EmptyState";
 import Breadcrumb from "../../components/common/Breadcrumb";
@@ -23,13 +22,12 @@ export default function Catalogue() {
       max_price: searchParams.get("max_price") || undefined,
       search: searchParams.get("search") || undefined,
       sort: searchParams.get("sort") || "newest",
-      page: Number(searchParams.get("page")) || 1,
     }),
     [searchParams],
   );
 
   const { data: productsResponse, isLoading } = useFetch(
-    () => listProducts({ ...filters, page_size: 12 }),
+    () => listAllProducts(filters),
     [JSON.stringify(filters)],
   );
 
@@ -38,12 +36,7 @@ export default function Catalogue() {
     Object.entries(nextFilters).forEach(([key, value]) => {
       if (value) params[key] = value;
     });
-    params.page = 1;
     setSearchParams(params);
-  }
-
-  function goToPage(page) {
-    setSearchParams({ ...Object.fromEntries(searchParams), page });
   }
 
   const products = productsResponse?.data || [];
@@ -66,11 +59,10 @@ export default function Catalogue() {
       ) : (
         <>
           <div className={styles.grid}>
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {products.map((product, index) => (
+              <ProductCard key={product.id} product={product} animationIndex={index} />
             ))}
           </div>
-          <Pagination page={meta.page} totalPages={meta.total_pages} onPageChange={goToPage} />
         </>
       )}
 

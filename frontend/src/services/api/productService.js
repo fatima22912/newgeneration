@@ -80,6 +80,24 @@ export async function listProducts(params = {}) {
   return data;
 }
 
+export async function listAllProducts(params = {}) {
+  const pageSize = 100;
+  const firstPage = await listProducts({ ...params, page: 1, page_size: pageSize });
+  const totalPages = Math.max(1, firstPage?.meta?.total_pages || 1);
+  if (totalPages === 1) return firstPage;
+
+  const remainingPages = await Promise.all(
+    Array.from({ length: totalPages - 1 }, (_, index) =>
+      listProducts({ ...params, page: index + 2, page_size: pageSize }),
+    ),
+  );
+
+  return {
+    ...firstPage,
+    data: [firstPage.data || [], ...remainingPages.map((page) => page.data || [])].flat(),
+  };
+}
+
 export async function getProduct(idOrSlug) {
   if (env.useMocks) {
     const product = getMockProduct(idOrSlug, mockStore);
