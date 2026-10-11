@@ -12,7 +12,7 @@ export default function ProductCard({ product, animationIndex = 0 }) {
     <Link
       to={`/produits/${product.slug}`}
       className={styles.card}
-      style={{ "--card-index": animationIndex }}
+      style={{ "--card-delay": `${Math.min(animationIndex * 80, 720)}ms` }}
     >
       <div className={styles.imageWrapper}>
         {image ? (

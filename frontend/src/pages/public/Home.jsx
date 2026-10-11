@@ -66,8 +66,8 @@ export default function Home() {
           <Loader />
         ) : (
           <div className={styles.grid}>
-            {(productsResponse?.data || []).map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {(productsResponse?.data || []).map((product, index) => (
+              <ProductCard key={product.id} product={product} animationIndex={index} />
             ))}
           </div>
         )}

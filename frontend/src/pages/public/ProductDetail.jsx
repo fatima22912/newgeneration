@@ -106,8 +106,8 @@ export default function ProductDetail() {
         <section className={styles.similar}>
           <h2>Produits similaires</h2>
           <div className={styles.similarGrid}>
-            {similarProducts.map((p) => (
-              <ProductCard key={p.id} product={p} />
+            {similarProducts.map((p, index) => (
+              <ProductCard key={p.id} product={p} animationIndex={index} />
             ))}
           </div>
         </section>

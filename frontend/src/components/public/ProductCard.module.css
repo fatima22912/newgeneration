@@ -3,6 +3,9 @@
   flex-direction: column;
   background-color: var(--color-paper);
   transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  animation: cardIn 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--card-delay, 0ms);
 }
 
 .card:hover {
@@ -14,11 +17,10 @@
   box-shadow: var(--shadow-card);
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: reduce) {
   .card {
-    opacity: 0;
-    animation: cardIn 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
-    animation-delay: min(calc(var(--card-index, 0) * 55ms), 550ms);
+    opacity: 1;
+    animation: none;
   }
 }
 
